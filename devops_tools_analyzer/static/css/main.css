@@ -1,0 +1,45 @@
+/* Main Header */
+.main-header
+{
+   text-align: left;
+   display: flex;
+}
+/*Main Footer*/
+.devops-main-footer
+{
+   background-color: #e1d798;
+   font-weight: bold;
+}
+/*Main BackGround*/
+body
+{
+   background-color: #e1d798; !important
+}
+/* Brand CSS*/
+.brand-name
+{
+   text-shadow: 1px 0 #aaa4a4;
+   letter-spacing: 2px;
+   font-weight: bold;
+   background-color: #e1d798;
+}
+/* Menu Font in HomePage */
+.header-menu-item
+{
+   font-weight: bold;
+}
+/* Menu CSS*/
+.dropdown-submenu {
+   position: relative;
+}
+
+.dropdown-submenu .dropdown-menu {
+   top: 0;
+   left: 100%;
+   margin-top: -1px;
+}
+
+.menu-item-css
+{
+   padding: 3px;
+}
