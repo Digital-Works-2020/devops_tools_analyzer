@@ -21,12 +21,16 @@
                    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Cloud Tools</button>
                    <ul class="dropdown-menu">
                        <li class="dropdown-submenu">
-                           <a class="test" tabindex="-1" href="#">AWS<span class="caret"></span></a>
+                           <a class="test" tabindex="-1" href="#">AWS
+                               {% if aws_objects|length > 0 %}   <span class="caret"></span> {% endif %}
+                            </a>
+                            {% if aws_objects|length > 0 %}
                             <ul class="dropdown-menu">
                                 {% for obj in aws_objects %}
                                 <li><a tabindex="-1" href="{% url 'aws_accounts' aws_account=obj.account_name %}">{{ obj.account_name }}</a></li>
                                 {% endfor %}
                             </ul>
+                            {% endif %}
                        </li>
 
                    </ul>
