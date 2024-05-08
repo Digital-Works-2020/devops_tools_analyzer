@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block page_content %}
+    <script type="text/javascript" src="../static/js/aws_page.js"></script> 
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                 <h1 class="account_name">AWS Account: {{ aws_account }}<h1>
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card aws_card">
+                    <div class="card-body">
+                        <h5 class="card-title">Current Month Cost</h5>
+                        <span class="current_cost">Loading...</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card aws_card">
+                    <div class="card-body">
+                        <h5 class="card-title">Previous Month Cost</h5>
+                        <span class="prev_cost">Loading...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
