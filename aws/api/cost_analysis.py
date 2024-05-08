@@ -10,7 +10,14 @@ class AWSCostAnalyzer(APIView):
           operation = self.request.query_params.get("data_to_extract")
           aws_account = self.request.query_params.get("account_name")
           period = self.request.query_params.get("period","current")
-          result = list_of_operations[operation](aws_account,period)
+          try:
+               if operation == "total_cost":
+                   result = list_of_operations[operation](aws_account,period)
+                   result["status"] = 200
+          except Exception as e:
+              result = {}
+              result["status"] = 500
+              result["error"] = e
           return Response(result)
 
 def get_total_cost(account_name,period="current"):
@@ -41,9 +48,7 @@ def get_total_cost(account_name,period="current"):
                Granularity='MONTHLY',
                Metrics=['BlendedCost',],
         )
-        
-        
-    return response
+        return {"cost" : round(float(response['ResultsByTime'][0]['Total']['BlendedCost']['Amount']),2) }
      
 
 list_of_operations = {
