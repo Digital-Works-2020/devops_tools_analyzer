@@ -48,7 +48,7 @@ def get_total_cost(account_name,period="current"):
                Granularity='MONTHLY',
                Metrics=['BlendedCost',],
         )
-        return {"cost" : round(float(response['ResultsByTime'][0]['Total']['BlendedCost']['Amount']),2) }
+    return {"cost" : round(float(response['ResultsByTime'][0]['Total']['BlendedCost']['Amount']),2) }
      
 
 list_of_operations = {
