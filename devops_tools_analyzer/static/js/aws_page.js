@@ -20,7 +20,7 @@ $(document).ready(function() {
    $.get(prev_cost_api_url,function(data,status){
        if(data["status"] == 200)
        {
-          console.log("Updating Current AWS Cost")
+          console.log("Updating Previous Month AWS Cost")
           $('.prev_cost')[0].innerHTML = data["cost"] + "USD"
        }
        else
@@ -35,7 +35,6 @@ $(document).ready(function() {
           console.log("Updating Groups Details")
           $('.total_groups')[0].innerHTML = data["number_of_groups"]
           $('.empty_groups')[0].innerHTML = data["number_of_empty_groups"]
-          $('.prev_cost')[0].innerHTML = data["cost"] + "USD"
        }
        else
        {
