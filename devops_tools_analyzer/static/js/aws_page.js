@@ -1,7 +1,10 @@
 $(document).ready(function() {
    aws_account_name =  $('.account_name')[0].innerHTML.split(":")[1].trim();
+   
    current_cost_api_url = "/aws/cost?account_name=" + aws_account_name + "&data_to_extract=total_cost"
    prev_cost_api_url = current_cost_api_url + "&period=prev"
+   groups_url = "/aws/iam?account_name=CS_Dev&data_to_extract=groups"
+   
    $.get(current_cost_api_url,function(data,status){
        if(data["status"] == 200)
        {
@@ -26,5 +29,20 @@ $(document).ready(function() {
           $('.prev_cost')[0].innerHTML = "Error:" + data["error"]
        }
    });
+   $.get(groups_url,function(data,status){
+       if(data["status"] == 200)
+       {
+          console.log("Updating Groups Details")
+          $('.total_groups')[0].innerHTML = data["number_of_groups"]
+          $('.empty_groups')[0].innerHTML = data["number_of_empty_groups"]
+          $('.prev_cost')[0].innerHTML = data["cost"] + "USD"
+       }
+       else
+       {
+          console.log("Updating Error Message")
+          $('.total_groups')[0].inner_HTML = data["error"]
+          $('.empty_groups')[0].inner_HTML = data["error"]
+       }
+   });   
 }
 )
