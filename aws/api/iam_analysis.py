@@ -24,13 +24,16 @@ def get_group_analysis(account_name):
         iam_client = boto3.client('iam',aws_access_key_id=aws_account[1],aws_secret_access_key=aws_account[2])
     else:
         iam_client = boto3.client('iam',aws_access_key_id=aws_account[1],aws_secret_access_key=aws_account[2],aws_session_token=aws_account[3])
-    groups = iam_client.list_groups()
+    groups_paginator = iam_client.get_paginator('list_groups').paginate()
+    total_groups = 0
     empty_groups = 0
-    for group in groups['Groups']:
-        if len(iam_client.get_group(GroupName=group['GroupName'])['Users']) == 0:
-            empty_groups += 1
+    for groups_response in groups_paginator:
+        total_groups+= len(groups_response['Groups']) 
+        for each_group in groups_response['Groups']:
+            if len(iam_client.get_group(GroupName=each_group['GroupName'])['Users']) == 0:
+                empty_groups += 1
     result = {}
-    result["number_of_groups"] = len(groups['Groups'])
+    result["number_of_groups"] = total_groups
     result["number_of_empty_groups"] = empty_groups
     return result
     
