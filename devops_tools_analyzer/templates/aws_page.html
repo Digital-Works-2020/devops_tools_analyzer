@@ -44,6 +44,24 @@
                     </div>
                 </div>
             </div>
-        </div>                     
+        </div>      
+        <div class="row aws_row">
+            <div class="col-md-6">
+                <div class="card aws_card">
+                    <div class="card-body">
+                        <h5 class="card-title">Total Hosted Zones in Route53</h5>
+                        <a href = {% url 'aws_hosted_zones' aws_account=aws_account%}><span class="total_hosted_zones">Loading...</span></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card aws_card">
+                    <div class="card-body">
+                        <h5 class="card-title">Total Domains Registered in Route53</h5>
+                        <span class="total_domains">Loading...</span>
+                    </div>
+                </div>
+            </div>
+        </div>                      
     </div>
 {% endblock %}
