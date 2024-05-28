@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 {% block page_content %}
-    <script type="text/javascript" src="../static/js/aws_page.js"></script> 
+    <script type="text/javascript" src="../static/js/aws_route53_hosted_zones.js"></script> 
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <link href="../static/css/aws_hosted_zones.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
     <div class="container">
         <div class="row">
             <div class="col-md-3"></div>
@@ -9,6 +12,22 @@
             </div>
             <div class="col-md-3"></div>
         </div>
-        <h1> AWS Domains</h1>
+        <div class="loader-container" id="loader">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+        <table id="aws_hosted_zones" class="display" style="width:100%;display:none">
+            <thead>
+                   <tr>
+                       <th>Name</th>
+                       <th>Description</th>
+                       <th>ID</th>
+                       <th>PrivateZone</th>
+                       <th>Total Records</th>
+                   </tr>
+            </thead>
+            <tbody></tbody>
+            </table>
     </div>
 {% endblock %}
