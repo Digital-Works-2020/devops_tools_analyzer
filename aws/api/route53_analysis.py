@@ -8,25 +8,26 @@ class AWSRoute53Analyzer(APIView):
           operation = self.request.query_params.get("data_to_extract")
           aws_account = self.request.query_params.get("account_name")
           try:
-               if operation == "route53":
+               if operation == "route53" or operation == "hosted_zones":
                    result = list_of_operations[operation](aws_account)
                    result["status"] = 200
           except Exception as e:
               result = {}
               result["status"] = 500
               result["error"] = e
-          print(result)
           return Response(result)
+
+def get_client(service,access_key,secret_key,token=None):
+    if token is None or token == "":
+        return boto3.client(service,aws_access_key_id=access_key,aws_secret_access_key=secret_key)
+    else:
+       return boto3.client(service,aws_access_key_id=access_key,aws_secret_access_key=secret_key,aws_session_token=token)
 
 def get_route53_analysis(account_name):
     aws_account = AWSAccount.objects.values_list().filter(account_name=account_name)[0]
-    if aws_account[3] == "" or aws_account[3] is None:
-        route53_client = boto3.client('route53',aws_access_key_id=aws_account[1],aws_secret_access_key=aws_account[2])
-        route53domains_client = boto3.client('route53domains',aws_access_key_id=aws_account[1],aws_secret_access_key=aws_account[2])
-    else:
-        route53_client = boto3.client('route53',aws_access_key_id=aws_account[1],aws_secret_access_key=aws_account[2],aws_session_token=aws_account[3])
-        route53domains_client = boto3.client('route53domains',aws_access_key_id=aws_account[1],aws_secret_access_key=aws_account[2],aws_session_token=aws_account[3])
-    
+    route53_client = get_client('route53',access_key=aws_account[1],secret_key=aws_account[2],token=aws_account[3])
+    route53domains_client = get_client('route53domains',access_key=aws_account[1],secret_key=aws_account[2],token=aws_account[3])
+      
     #Calculate Hosted Zones
     total_hosted_zones = 0 
     result = {}
