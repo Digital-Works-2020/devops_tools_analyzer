@@ -41,8 +41,28 @@ def get_route53_analysis(account_name):
         total_domains += len(domain['Domains'])
     result["total_domains"] = total_domains
     return result
-    
+
+def get_hosted_zones_analysis(account_name):
+    aws_account = AWSAccount.objects.values_list().filter(account_name=account_name)[0]
+    route53_client = get_client('route53',access_key=aws_account[1],secret_key=aws_account[2],token=aws_account[3])
+    hosted_zone_data = []
+    for hosted_zone in route53_client.get_paginator('list_hosted_zones').paginate():
+        for each_hosted_zone in hosted_zone['HostedZones']:
+            records_paginater = route53_client.get_paginator('list_resource_record_sets').paginate(HostedZoneId=each_hosted_zone['Id'])
+            total_records = 0
+            for each_record_page in records_paginater:
+                total_records += len(each_record_page['ResourceRecordSets'])
+            hosted_zone_data.append({
+                              "id": each_hosted_zone['Id'].split("/")[-1],
+                              "name": each_hosted_zone['Name'],
+                              "description": each_hosted_zone["Config"].get('Comment',""),
+                              "privateZone": each_hosted_zone["Config"]['PrivateZone'],
+                              "total_records": total_records,
+                              })
+    return {"hosted_zone_data":hosted_zone_data}
+
 
 list_of_operations = {
-    "route53" : get_route53_analysis
+    "route53" : get_route53_analysis,
+    "hosted_zones" : get_hosted_zones_analysis      
 }
