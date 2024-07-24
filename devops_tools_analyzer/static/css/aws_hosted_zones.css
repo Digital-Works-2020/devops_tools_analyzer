@@ -1,9 +1,9 @@
 /* CSS For Data tables */
-.dataTables_wrapper .dataTables_filter input
+#aws_hosted_zones_wrapper select
 {
     background-color:white !important;
 }
-.dataTables_wrapper .dataTables_length select
+#aws_hosted_zones_wrapper input
 {
     background-color:white !important;
 }
