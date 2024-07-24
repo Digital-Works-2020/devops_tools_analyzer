@@ -21,6 +21,6 @@ from . import views
 
 urlpatterns = [
     re_path(r'^admin/', admin.site.urls),
-    re_path(r'^aws', include('aws.urls')),
+    re_path(r'^aws/', include('aws.urls')),
     re_path(r'^$',views.index, name='index')
 ]
