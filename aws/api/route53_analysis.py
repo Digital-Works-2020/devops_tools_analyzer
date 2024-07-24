@@ -7,14 +7,19 @@ class AWSRoute53Analyzer(APIView):
       def get(self, request, *args, **keyword_args):
           operation = self.request.query_params.get("data_to_extract")
           aws_account = self.request.query_params.get("account_name")
+          zone_id = self.request.query_params.get("zone_id","")
           try:
                if operation == "route53" or operation == "hosted_zones":
                    result = list_of_operations[operation](aws_account)
+                   result["status"] = 200
+               elif operation  == "hosted_zones_record":
+                   result = list_of_operations[operation](aws_account,zone_id)
                    result["status"] = 200
           except Exception as e:
               result = {}
               result["status"] = 500
               result["error"] = e
+              print(result)
           return Response(result)
 
 def get_client(service,access_key,secret_key,token=None):
@@ -59,10 +64,26 @@ def get_hosted_zones_analysis(account_name):
                               "privateZone": each_hosted_zone["Config"]['PrivateZone'],
                               "total_records": total_records,
                               })
-    return {"hosted_zone_data":hosted_zone_data}
+    return {"hosted_zone_data" : hosted_zone_data}
 
+def get_hosted_zones_record(account_name,zone_id):
+    aws_account = AWSAccount.objects.values_list().filter(account_name=account_name)[0]
+    route53_client = get_client('route53',access_key=aws_account[1],secret_key=aws_account[2],token=aws_account[3])
+    hosted_zone_records = []
+    records_paginater = route53_client.get_paginator('list_resource_record_sets').paginate(HostedZoneId=zone_id)
+    for each_record_page in records_paginater:
+        for each_record in each_record_page['ResourceRecordSets']:
+            print(each_record)
+            hosted_zone_records.append({
+                 "name": each_record["Name"],
+                 "type": each_record["Type"],
+                 "ttl" : each_record["TTL"],
+                 "values": ",".join([each_record_value["Value"] for each_record_value in each_record["ResourceRecords"]]),
+             })
+    return {"hosted_zone_records" : hosted_zone_records}
 
 list_of_operations = {
     "route53" : get_route53_analysis,
-    "hosted_zones" : get_hosted_zones_analysis      
+    "hosted_zones" : get_hosted_zones_analysis,
+    "hosted_zones_record" : get_hosted_zones_record 
 }
