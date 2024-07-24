@@ -4,15 +4,23 @@ $(document).ready(function() {
    $.get(route53_hosted_zone_url,function(data,status){
        if(data["status"] == 200)
        {
-
+         hosted_zone_data = data["hosted_zone_data"]
+         for (let i = 0; i < hosted_zone_data.length; i++) {
+             hosted_zone_data[i]["details"] = "/aws/"+ aws_account_name + "/hostedzones/" +hosted_zone_data[i]["id"]
+         }
          $('#aws_hosted_zones').DataTable({
-            "data": data["hosted_zone_data"],
+            "data": hosted_zone_data,
             columns: [
                 { data: 'name' },
                 { data: 'description' },
                 { data: 'id' },
                 { data: 'privateZone' },
                 { data: 'total_records' },
+                { data: 'details',
+                  render: function (data, type) {
+                             return "<a href=" + data + ">View Records</a>"
+                          }
+                },
             ],
         });
         $("table").show();
