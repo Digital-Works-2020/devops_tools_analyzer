@@ -3,18 +3,18 @@ from django.http import HttpResponse
 import urllib
 import re
 
-def aws_hosted_zones(request,**kwargs):
+def aws_zone_details(request,aws_account, zone_id):
     context = {}
-    decoded_url = urllib.parse.unquote(request.build_absolute_uri())
-    match = re.search(r'aws_account=(\w+)', decoded_url)
-    if match:
-        context["aws_account"] = match.group(1)
+    context["aws_account"] = aws_account
+    context["zone_id"] = zone_id
+    print(context)
+
+def aws_hosted_zones(request,aws_account):
+    context = {}
+    context["aws_account"] = aws_account
     return render(request,'aws_route53_hosted_zones.html',context) 
 
-def aws_index(request,**kwargs):
+def aws_index(request,aws_account):
     context = {}
-    decoded_url = urllib.parse.unquote(request.build_absolute_uri())
-    match = re.search(r'aws_account=(\w+)', decoded_url)
-    if match:
-        context["aws_account"] = match.group(1)
+    context["aws_account"] = aws_account
     return render(request, 'aws_page.html',context)
