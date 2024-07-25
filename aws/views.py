@@ -7,7 +7,7 @@ def aws_zone_details(request,aws_account, zone_id):
     context = {}
     context["aws_account"] = aws_account
     context["zone_id"] = zone_id
-    print(context)
+    return render(request,'aws_route53_hosted_zone_rec.html',context)
 
 def aws_hosted_zones(request,aws_account):
     context = {}
