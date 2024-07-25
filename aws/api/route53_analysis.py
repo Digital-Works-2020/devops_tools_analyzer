@@ -75,10 +75,10 @@ def get_hosted_zones_record(account_name,zone_id):
         for each_record in each_record_page['ResourceRecordSets']:
             print(each_record)
             hosted_zone_records.append({
-                 "name": each_record["Name"],
-                 "type": each_record["Type"],
-                 "ttl" : each_record["TTL"],
-                 "values": ",".join([each_record_value["Value"] for each_record_value in each_record["ResourceRecords"]]),
+                 "name": each_record.get("Name","N/A"),
+                 "type": each_record.get("Type","N/A"),
+                 "ttl" : each_record.get("TTL","N/A"),
+                 "values": ",".join([each_record_value["Value"] for each_record_value in each_record.get("ResourceRecords",[])]),
              })
     return {"hosted_zone_records" : hosted_zone_records}
 
