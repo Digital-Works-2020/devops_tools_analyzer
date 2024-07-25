@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block page_content %}
+    <script type="text/javascript" src="/static/js/aws_route53_hosted_zone_rec.js"></script>
+    <script src="https://cdn.datatables.net/2.0.8/js/dataTables.js"></script>
+    <link href="/static/css/aws_hosted_zone_rec.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/2.0.8/css/dataTables.dataTables.css">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                 <h1 class="account_name">AWS Account: {{ aws_account }}<h1>
+                 <h3 class="zone_id">Route53 Zone: {{ zone_id }}</h3>
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+        <div class="loader-container" id="loader">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+        <table id="aws_hosted_zone_rec" class="display" style="width:100%;display:none">
+            <thead>
+                   <tr>
+                       <th>Name</th>
+                       <th>Type</th>
+                       <th>TTL</th>
+                       <th>Values</th>
+                   </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+{% endblock %}
