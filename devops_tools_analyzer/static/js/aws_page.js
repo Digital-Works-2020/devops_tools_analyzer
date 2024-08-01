@@ -10,7 +10,7 @@ $(document).ready(function() {
        if(data["status"] == 200)
        {
           console.log("Updating Current AWS Cost")
-          $('.current_cost')[0].innerHTML = data["cost"] + "USD"
+          $('.current_cost')[0].innerHTML = data["cost"] + " USD"
        }
        else
        {
@@ -22,7 +22,7 @@ $(document).ready(function() {
        if(data["status"] == 200)
        {
           console.log("Updating Previous Month AWS Cost")
-          $('.prev_cost')[0].innerHTML = data["cost"] + "USD"
+          $('.prev_cost')[0].innerHTML = data["cost"] + " USD"
        }
        else
        {
