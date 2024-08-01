@@ -15,6 +15,7 @@ class AWSCostAnalyzer(APIView):
                    result = list_of_operations[operation](aws_account,period)
                    result["status"] = 200
           except Exception as e:
+              print("Exception in Cost Analysis Get API")
               result = {}
               result["status"] = 500
               result["error"] = e
@@ -28,8 +29,11 @@ def get_total_cost(account_name,period="current"):
         cost_client = boto3.client('ce',aws_access_key_id=aws_account[1],aws_secret_access_key=aws_account[2],aws_session_token=aws_account[3])
     if period == "current":
         this_month_first = str(datetime.now().year) + "-" + str(datetime.now().month).zfill(2) + "-" + "01"
+        end = date.today()
+        if (date.today().day) ==  1:
+            end = str(datetime.now().year) + "-" + str(datetime.now().month).zfill(2) + "-" + "02"
         response = cost_client.get_cost_and_usage(
-               TimePeriod={ 'Start' : this_month_first ,'End' : str(date.today())},
+               TimePeriod={ 'Start' : this_month_first ,'End' : str(end)},
                Granularity='MONTHLY',
                Metrics=['BlendedCost',],
         )
