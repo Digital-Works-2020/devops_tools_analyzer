@@ -36,8 +36,25 @@
                        </li>
 
                    </ul>
-
                 </div>
+                <div class="dropdown ticket-tools menu-item-css">
+                   <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Ticketing Tools</button>
+                   <ul class="dropdown-menu">
+                       <li class="dropdown-submenu">
+                           <a class="test" tabindex="-1" href="#">JIRA
+                               {% if jira_objects|length > 0 %}   <span class="caret"></span> {% endif %}
+                            </a>
+                            {% if jira_objects|length > 0 %}
+                            <ul class="dropdown-menu">
+                                {% for obj in jira_objects %}
+                                <li><a tabindex="-1" href="{% url 'jira_accounts' jira_account=obj.account_name %}">{{ obj.account_name }}</a></li>
+                                {% endfor %}
+                            </ul>
+                            {% endif %}
+                       </li>
+
+                   </ul>
+                </div>                
             </div>
             <div class="card-body">
                 {% block page_content %}
