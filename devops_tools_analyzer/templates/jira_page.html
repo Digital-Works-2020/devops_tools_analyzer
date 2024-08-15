@@ -1,3 +1,51 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block page_content %}
+<script type="text/javascript" src="{% static 'js/jira/jira_page.js' %}"></script>
+<link href="{% static 'css/jira/jira_page.css' %}" rel="stylesheet" type="text/css">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                 <h1 class="account_name">JIRA Account: {{ jira_account }}<h1>
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card jira_card">
+                    <div class="card-body">
+                        <h5 class="card-title"> Business Projects</h5>
+                        <span class="business_projects">Loading...</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card jira_card">
+                    <div class="card-body">
+                        <h5 class="card-title">Software Projects</h5>
+                        <span class="software_projects">Loading...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row jira_row">
+            <div class="col-md-6">
+                <div class="card jira_card">
+                    <div class="card-body">
+                        <h5 class="card-title"> Team Managed Projects</h5>
+                        <span class="team_projects">Loading...</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card jira_card">
+                    <div class="card-body">
+                        <h5 class="card-title">Company Managed Projects</h5>
+                        <span class="company_projects">Loading...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
