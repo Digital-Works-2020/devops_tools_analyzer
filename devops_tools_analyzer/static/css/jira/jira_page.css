@@ -1,0 +1,10 @@
+/* JIRA Card CSS */
+.jira_card
+{
+   background-color: #c9bcbc; !important
+}
+/* JIRA Row CSS */
+.jira_row
+{
+   margin-top: 2%;
+}
