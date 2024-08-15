@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block page_content %}
-    <script type="text/javascript" src="../static/js/aws_page.js"></script> 
+    <link href="{% static 'css/aws_page.css' %}" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="{% static 'js/aws_page.js' %}"></script> 
     <div class="container">
         <div class="row">
             <div class="col-md-3"></div>
