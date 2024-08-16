@@ -36,7 +36,8 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'aws.apps.AwsConfig',
-    'atlassian_jira.apps.AtlassianJiraConfig',    
+    'atlassian_jira.apps.AtlassianJiraConfig',
+    'github_scm.apps.GithubScmConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
