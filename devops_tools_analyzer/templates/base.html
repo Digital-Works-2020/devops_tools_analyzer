@@ -53,7 +53,25 @@
                        </li>
 
                    </ul>
-                </div>                
+                </div>     
+                <div class="dropdown ticket-tools menu-item-css">
+                   <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">SCM Tools</button>
+                   <ul class="dropdown-menu">
+                       <li class="dropdown-submenu">
+                           <a class="test" tabindex="-1" href="#">Github
+                               {% if github_objects|length > 0 %}   <span class="caret"></span> {% endif %}
+                            </a>
+                            {% if github_objects|length > 0 %}
+                            <ul class="dropdown-menu">
+                                {% for obj in github_objects %}
+                                <li><a tabindex="-1" href="{% url 'github_accounts' github_account=obj.account_name %}">{{ obj.account_name }}</a></li>
+                                {% endfor %}
+                            </ul>
+                            {% endif %}
+                       </li>
+
+                   </ul>
+                </div>                     
             </div>
             <div class="card-body">
                 {% block page_content %}
