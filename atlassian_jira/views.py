@@ -6,4 +6,4 @@ import re
 def jira_index(request,jira_account):
     context = {}
     context["jira_account"] = jira_account
-    return render(request, 'jira_page.html',context)
+    return render(request, 'jira/jira_page.html',context)
