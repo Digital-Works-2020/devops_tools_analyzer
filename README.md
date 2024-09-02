@@ -29,6 +29,8 @@ Under this, there is support for Atlassain Jira
    - Company Managed Projects
    - Total Webhooks count
    - Disabled Webhooks Count
+   - 3rd Party Plugin Count
+- From Jira Home, Page, Clicking the URL for Plugin Count redirects to page showing Plugin Information
 
 ### SCM Tools
 Under this, there is support for Github
