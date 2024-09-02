@@ -9,7 +9,7 @@ $(document).ready(function() {
        if(data["status"] == 200)
        {
           console.log("Updating Jira Plugins")
-          $('.total_apps')[0].innerHTML =  data["data"]["plugin_count"]
+          $('.total_apps')[0].innerHTML = "<a href='/jira/"+ jira_account_name  + "/plugin_details'>" + data["data"]["plugin_count"] + "</a>"
        }
        else
        {
