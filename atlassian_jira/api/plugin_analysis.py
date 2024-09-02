@@ -37,7 +37,7 @@ def get_plugins_list(account_name):
 
     #Plugin Counter
     plugin_count = 0
-    plugin_details = [] #""
+    plugin_details = []
     
     #Parse Response
     for plugin in plugin_response["plugins"]:
