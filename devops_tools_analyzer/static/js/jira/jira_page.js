@@ -3,6 +3,20 @@ $(document).ready(function() {
    
    project_api_url = "/jira/project?account_name=" + jira_account_name + "&data_to_extract=project_types"
    webhook_api_url = "/jira/webhook?account_name=" + jira_account_name + "&data_to_extract=webhook_details"
+   plugin_api_url  = "/jira/plugin?account_name=" + jira_account_name + "&data_to_extract=plugin_list"
+
+   $.get(plugin_api_url,function(data,status){
+       if(data["status"] == 200)
+       {
+          console.log("Updating Jira Plugins")
+          $('.total_apps')[0].innerHTML = "<a href='/jira/"+ jira_account_name  + "/plugin_details'>" + data["data"]["plugin_count"] + "</a>"
+       }
+       else
+       {
+          console.log("Updating Error Message for Plugins")
+          $('.total_apps')[0].innerHTML = "Failed to Process Data"
+       }
+   });
 
    $.get(webhook_api_url,function(data,status){
        if(data["status"] == 200)
