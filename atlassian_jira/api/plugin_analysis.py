@@ -37,14 +37,23 @@ def get_plugins_list(account_name):
 
     #Plugin Counter
     plugin_count = 0
+    plugin_details = [] #""
     
     #Parse Response
     for plugin in plugin_response["plugins"]:
         if plugin["enabled"] == True and plugin["userInstalled"] == True:
             plugin_count += 1
+            plugin_details.append(
+               {
+                   "name"        : plugin["name"],
+                   "vendor"      : plugin["vendor"]["name"],
+                   "description" : plugin["description"],
+               }
+            )
     
     return {
-       "plugin_count" : plugin_count
+       "plugin_count"   : plugin_count,
+       "plugin_details" : plugin_details
     } 
 
 list_of_operations = {
